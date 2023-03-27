@@ -2,7 +2,7 @@
   "name": "jwtts",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "build": "npx tsc",
     "prestart": "npm run build",
