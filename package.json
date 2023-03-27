@@ -1,0 +1,28 @@
+{
+  "name": "jwtts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx tsc",
+    "prestart": "npm run build",
+    "start": "node dist/app.js",
+    "preserve": "npm run build",
+    "serve": "npx tsc -w & nodemon ./dist/app.js"
+  },
+  "keywords": [],
+  "author": "jordan100",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "@types/morgan": "^1.9.4",
+    "@types/node": "^18.15.10",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.22",
+    "typescript": "^5.0.2"
+  }
+}
