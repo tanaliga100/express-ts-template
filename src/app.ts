@@ -10,7 +10,6 @@ dotenv.config();
 const app: Express = express();
 app.use(express.json());
 app.use(morgan("dev"));
-
 // ROUTES
 app.get("/", (req: Request, res: Response) => {
   res.json({ msg: "Server Alive : Express Ts" });
