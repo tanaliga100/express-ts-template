@@ -10,8 +10,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.sampleController = void 0;
-const asyncMiddleware_1 = require("../middlewares/asyncMiddleware");
-const sampleController = (0, asyncMiddleware_1.asyncMiddleware)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    // if (test) throw new CustomError()
-}));
+const async_middleware_1 = require("../middlewares/async-middleware");
+const sampleController = (0, async_middleware_1.asyncMiddleware)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () { }));
 exports.sampleController = sampleController;

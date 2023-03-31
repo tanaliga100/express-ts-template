@@ -1,5 +1,5 @@
 import { StatusCodes } from "http-status-codes";
-import CustomError from "./CustomError";
+import CustomError from "./custom-error";
 
 class UnAuthenticatedError extends CustomError {
   statusCode: number;

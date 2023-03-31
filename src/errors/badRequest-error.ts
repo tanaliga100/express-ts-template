@@ -1,5 +1,5 @@
 import { StatusCodes } from "http-status-codes";
-import CustomError from "./CustomError";
+import CustomError from "./custom-error";
 
 class BadRequestError extends CustomError {
   statusCode: number;

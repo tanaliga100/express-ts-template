@@ -1,24 +1,29 @@
 import dotenv from "dotenv";
-import express, { Express, NextFunction, Request, Response } from "express";
+import express, { Express, Request, Response } from "express";
 import morgan from "morgan";
+import path from "path";
 import { connectDB } from "./config/connectDB";
-import { errorHandlerMidlleware } from "./middlewares/errorHandlerMiddleware";
-import { notFoundMiddleware } from "./middlewares/notFoundMiddleware";
-import { router as sampleRoute } from "./routes/route";
+import { errorHandlerMidlleware } from "./middlewares/errorHandler-middleware";
+import { notFoundMiddleware } from "./middlewares/notFound-middleware";
+import { router as AuthRoute } from "./routes/authentication-routes";
 dotenv.config();
 
 const app: Express = express();
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "public")));
 app.use(morgan("dev"));
 // ROUTES
 app.get("/", (req: Request, res: Response) => {
   res.json({ msg: "Server Alive : Express Ts" });
 });
-app.use("/api/v1", sampleRoute);
 
-// 404 MIDDLEWARE
+// APPLICATION ROUTES
+app.use("/api/v1/auth", AuthRoute);
+
+// 404_MIDDLEWARE
 app.use(notFoundMiddleware);
-// ERROR MIDDLEWARE
+// ERROR_MIDDLEWARE
 app.use(errorHandlerMidlleware);
 
 const start = async () => {
@@ -32,4 +37,6 @@ const start = async () => {
     console.log("Something went wrong");
   }
 };
+console.log(process.env);
+
 start();
