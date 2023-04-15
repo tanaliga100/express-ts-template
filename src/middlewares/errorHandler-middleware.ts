@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import { CustomError } from "../errors";
+import CustomError from "../errors/custom-error";
 
 export const errorHandlerMidlleware = (
   err: any,
@@ -9,6 +9,7 @@ export const errorHandlerMidlleware = (
   next: NextFunction
 ) => {
   console.log(err instanceof CustomError ? "CUSTOM_ERROR" : "FALLBACK_ERROR");
+
   // DEFINE A DEFAULT ERROR OBJECT
   let customError = {
     statusCode: err.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
@@ -16,11 +17,16 @@ export const errorHandlerMidlleware = (
   };
   // BELOW ARE THE DIFFERENT KINDS OF ERROR THROWN BY MONGOOSE || CUSTOMIZED
   // Note: Validation Error Handler
-  if ((err.name = "ValidationError")) {
-    console.log(Object.values(err.errros));
-    customError.msg = err.Object.values(err.errors).map(
-      (item: any) => item.message
-    );
+
+  if (err.name && err.name === "ValidationError") {
+    customError.msg = Object.values(err.errors).map((item: any) => {
+      const path = item.path;
+      const message = item.message;
+      return {
+        path: path,
+        message: message,
+      };
+    });
     customError.statusCode = StatusCodes.BAD_REQUEST;
   }
   // Note: Duplicate Error Handler
@@ -35,10 +41,11 @@ export const errorHandlerMidlleware = (
     customError.statusCode = StatusCodes.NOT_FOUND;
     customError.msg = `NO ITEM FOUND WITH ID: ${err.value} `;
   }
+  // return res.status(404).json({
+  //   err,
+  // });
 
-  // return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ err });
   return res.status(customError.statusCode).json({
-    msg: customError.msg,
-    status: customError.statusCode,
+    ERROR: customError.msg,
   });
 };

@@ -29,8 +29,10 @@
     "@types/jsonwebtoken": "^9.0.1",
     "@types/morgan": "^1.9.4",
     "@types/node": "^18.15.10",
+    "@types/validator": "^13.7.15",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.22",
-    "typescript": "^5.0.2"
+    "typescript": "^5.0.2",
+    "validator": "^13.9.0"
   }
 }
